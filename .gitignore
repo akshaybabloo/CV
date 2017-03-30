@@ -194,3 +194,4 @@ TSWLatexianTemp*
 *~[0-9]*
 my_details.tex
 main.pdf
+*.pdf

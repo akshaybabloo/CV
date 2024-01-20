@@ -38,34 +38,34 @@
   let info_length = data.additional_info.len()
   for (key, value) in data.additional_info {
     if "phone_number" == key {
-      text([#data.additional_info.phone_number])
+      text([#data.additional_info.phone_number], size: 10pt)
       if count < info_length - 1 [ | ]
     }
     if "linkedin" == key {
       text([#linker(
           data.additional_info.linkedin,
           data.additional_info.linkedin.replace("https://", ""),
-        )], fill: mediumblue)
+        )], fill: mediumblue, size: 10pt)
       if count < info_length - 1 [ | ]
     }
     if "github" == key {
       text([#linker(
           data.additional_info.github,
           data.additional_info.github.replace("https://", ""),
-        )], fill: mediumblue)
+        )], fill: mediumblue, size: 10pt)
       if count < info_length - 1 [ | ]
     }
     if "website" == key {
       text([#linker(
           data.additional_info.website,
           data.additional_info.website.replace("https://", ""),
-        )], fill: mediumblue)
+        )], fill: mediumblue, size: 10pt)
       if count < info_length - 1 [ | ]
     }
     if "email" == key {
       text(
         [#linker("mailto:" + data.additional_info.email, data.additional_info.email)],
-        fill: mediumblue,
+        fill: mediumblue, size: 10pt
       )
       if count < info_length - 1 [ | ]
     }
@@ -74,7 +74,7 @@
   set align(left)
   set par(justify: true)
 
-  set text(weight: "regular")
+  // Personal Statement
   if "personal_statement" in data {
     section("Personal Statement")
     text(data.personal_statement)
@@ -101,13 +101,14 @@
       align: start,
       stroke: none,
       column-gutter: 25pt,
-      row-gutter: 8pt,
+      row-gutter: 10pt,
       ..for work in data.experience {
         (text(work.start_date + " - " + work.end_date, style: "italic"), [
           *#work.title at #work.company* \
           #emph(work.location) \
-          #eval(work.description, mode: "markup")\
+          #eval(work.description, mode: "markup")
           #if work.technologies.len() > 0 [
+            #v(-3pt)
             *Technologies:* #work.technologies.join(", ")
           ]
         ])

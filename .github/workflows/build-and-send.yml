@@ -1,0 +1,29 @@
+name: Build and eMail
+
+env:
+  typst_version: "v0.10.0"
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install typst
+        run: |
+          curl -LOJ https://github.com/typst/typst/releases/download/${typst_version}/typst-x86_64-unknown-linux-musl.tar.xz
+          tar -xvf typst-x86_64-unknown-linux-musl.tar.xz
+          sudo mv typst /usr/local/bin/typst
+
+      - name: Run typst
+        run: |
+          typst --version

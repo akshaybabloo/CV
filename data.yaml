@@ -1,0 +1,310 @@
+# Personal Information
+name: "Akshay Raj Gollahalli"
+personal_statement: |-
+  I am a highly experienced and proficient Full-stack developer expert at programming in Python, Go language and C++. I am very capable at all aspects of development - project planning, information gathering, writing, and testing code, creating documentation and support. I am also a Data scientist adept at collecting, analysing, and interpreting large datasets, developing new forecasting models, and performing data management tasks. I am a passionate, focused, enthusiastic individual possessing extensive analytical skills, strong attention to detail, an unquenchable thirst for knowledge, and a significant ability to work in team environments.
+additional_info:
+  phone_number: 123456
+  email: "akshay@gollahalli.com"
+  linkedin: "https://linkedin.com/in/gollahalli"
+  github: "https://github.com/akshaybabloo"
+  website: "https://gollahalli.com"
+
+# Core Competencies
+competencies:
+  - name: "Cloud Services"
+    competencies:
+      - "Azure"
+      - "Google Cloud"
+      - "Digital Ocean"
+      - "AWS"
+  - name: "Programming Languages"
+    competencies:
+      - "Python"
+      - "Go"
+      - "JavaScript/Typescript"
+      - "Java"
+      - "C#"
+      - "C++"
+      - "C"
+      - "Rust"
+      - "Dart"
+      - "Bash"
+  - name: "Backend Frameworks"
+    competencies:
+      - "Django"
+      - "ASP.Net Core"
+      - "Express"
+  - name: "Frontend Frameworks"
+    competencies:
+      - "Angular"
+      - "VueJs"
+      - "React"
+  - name: "CI/CD"
+    competencies:
+      - "Gitlab CI"
+      - "Github Actions"
+      - "Jenkins"
+      - "GCP Cloud Build"
+      - "Azure DevOps"
+  - name: "Databases"
+    competencies:
+      - "PostgreSQL"
+      - "MySQL"
+      - "MongoDB"
+      - "Redis"
+      - "Firebase Firestore"
+      - "SQLite"
+      - "MS SQL Server"
+  - name: "Containerization"
+    competencies:
+      - "Docker"
+      - "Kubernetes"
+      - "Helm"
+  - name: "Cross-Platform User Interface"
+    competencies:
+      - "Qt (with Python and C++)"
+      - "Flutter"
+      - "Electron"
+
+# Work Experience
+experience:
+  - title: "Software Engineer (C++)"
+    company: "Fisher & Paykel Appliances"
+    company_url: ""
+    location: "Auckland, New Zealand"
+    start_date: "January 2022"
+    end_date: "Present"
+    technologies:
+      - "C++"
+      - "Java"
+      - "Docker"
+      - "Azure"
+      - "Qt"
+      - "Python"
+    description: |-
+      Lead the development of a cross-platform application using C++ and Qt for the company's next generation of products.
+
+  - title: "Research Assistant in Software Development"
+    company: "AUT University"
+    company_url: ""
+    location: "Auckland, New Zealand"
+    start_date: "September 2021"
+    end_date: "February 2022"
+    technologies:
+      - "Java"
+      - "Neo4j"
+      - "Docker"
+    description: |-
+      Develop an eHealth Care system for finding and moving resources between locations based on the shortest path.
+
+  - title: "Lecturer"
+    company: "Auckland Institute of Studies"
+    company_url: ""
+    location: "Auckland, New Zealand"
+    start_date: "August 2021"
+    end_date: "June, 2022"
+    technologies: []
+    description: |-
+      Lectured on the following papers:
+      - Fundamentals of Information Systems and Technology
+      - Fundamentals of Computer Programming
+
+  - title: "Data Scientist and Software Engineer"
+    company: "IBTec, AUT University"
+    company_url: ""
+    location: "Auckland, New Zealand"
+    start_date: "April 2021"
+    end_date: "February 2022"
+    technologies:
+      - "C++"
+      - "C#"
+      - "Python"
+      - "Unity Gaming Engine"
+      - "Qt Frameworks"
+    description: |-
+      A sub-contract between AUT University and University of Auckland to develop an emotion detection plugin for Unity gaming engine.
+      - To develop a cross platform data logger user interface using Bluetooth LE APIs that logs streaming data from Electroencephalography (EEG)/Electromyography (EMG) device
+      - Develop a digital signal processor for EMG device for detecting valance and arousal
+      - Develop a Unity gaming engine plugin to display the emotions to the user
+
+  - title: "Software Engineer"
+    company: "AUT Ventures"
+    company_url: ""
+    location: "Auckland, New Zealand"
+    start_date: "July 2020"
+    end_date: "January 2021"
+    technologies:
+      - "Python"
+      - "Go"
+      - "Docker"
+      - "Angular"
+      - "R"
+      - "Firebase Firestore"
+    description: |-
+      AUT Ventures commercialises AUT University's research.
+      - Built software for deploying machine learning models on Azure and Google Cloud Platform
+      - Used cloud automation to build continuous integration and deployments
+      - Developed CLIs and web services using REST services and documented them in OpenAPI 3.0
+
+  - title: "Teaching Assistant"
+    company: "AUT University"
+    company_url: ""
+    location: "Auckland, New Zealand"
+    start_date: "August 2018"
+    end_date: "June 2020"
+    technologies:
+      - "Java"
+      - "C#"
+      - "C"
+    description: |-
+      Assisting lecturers in the following subjects:
+      - COMP400 - Foundation Programming - C\#
+      - INFS600 - Data and Process Modelling
+      - COMP500 - Programming 1 - C
+      - Programming 2 - Java
+      - Algorithm Design and Analysis
+      - Physical Database and Design
+      - Object-Oriented Applications - Java
+
+  - title: "Research Assistant - Software Development and Data Science"
+    company: "Knowledge Engineering and Discovery Research Institute (KEDRI), AUT University"
+    company_url: ""
+    location: "Auckland, New Zealand"
+    start_date: "July 2015"
+    end_date: "January 2020"
+    technologies:
+      - Python
+      - Django
+      - Angular
+      - C
+      - Docker
+      - Kubernetes
+      - Java
+      - VueJs
+      - PostgreSQL
+      - CosmosDB
+      - Nginx Unit application server
+      - C#
+    description: |-
+      KEDRI is a research institute that has pioneered the field of Spiking Neural Network (SNN) and its applications.
+      - Developed embedded systems for running SNN using Python and C language
+      - Developed Django based web services to upload, and train neural network data
+      - Assisted in developing algorithms for SNN in Java, Python and C.
+      - Deployed the training solution on Azure - https://neucube.io - written in Django
+      - Developed Command Line Interface (CLI) for the cloud to upload and run the machine learning models
+
+  - title: "Pay-per-View Customer Care"
+    company: "Sky Network Television Limited"
+    company_url: ""
+    location: "Auckland, New Zealand"
+    start_date: "May 2013"
+    end_date: "March 2015"
+    technologies: []
+    description: |-
+      On-call customer service to book on-demand channels for Sky customers
+
+  - title: "System Engineer"
+    company: "Cheminnova Group of Companies"
+    company_url: ""
+    location: "Hyderabad, India"
+    start_date: "July 2012"
+    end_date: "January 2013"
+    technologies: []
+    description: |-
+      They are a pharmaceutical company that manufacture bulk drugs
+      - Server management and technical support
+
+# Education
+education:
+  - course: "Doctir of Philosophy (PhD) in Artificial Intelligence"
+    institution: "AUT University"
+    start_date: "July 2016"
+    end_date: "Present"
+    location: "Auckland, New Zealand"
+    description: ""
+  - course: "Master of Computer and Information Sciences (MCIS)"
+    institution: "AUT University"
+    start_date: "March 2013"
+    end_date: "December 2015"
+    location: "Auckland, New Zealand"
+    description: ""
+  - course: "Bachelor of Technology in Computer Science and Engineering"
+    institution: "Jawaharlal Nehru Technological University"
+    start_date: "March 2007"
+    end_date: "March 2011"
+    location: "Hyderabad, India"
+    description: ""
+
+# Key Skills and Characteristics
+skills:
+  - A full set of programming languages
+  - Find creative solutions others miss
+  - Strong communication skills, ability to motivate and engage multiple teams
+  - Competent and quick to learn
+  - Capable of working efficiently even under pressure
+
+# Activities and Interests
+activities:
+  - "Horse Riding"
+  - "Swimming"
+
+# Languages
+languages:
+  - language: "English"
+    fluency: "Fluent"
+  - language: "Hindi"
+    fluency: "Fluent"
+  - language: "Telugu"
+    fluency: "Fluent"
+  - language: "Kannada"
+    fluency: "Fluent"
+
+# Projects
+projects:
+  - name: ""
+    description: ""
+    url: ""
+    technologies:
+      - ""
+      - ""
+      - ""
+  - name: ""
+    description: ""
+    url: ""
+    technologies:
+      - ""
+      - ""
+      - ""
+
+# Publications
+publications:
+  - name: ""
+    description: ""
+    url: ""
+  - name: ""
+    description: ""
+    url: ""
+
+# Awards and Scholarships
+awards:
+  - title: ""
+    awarder: ""
+    date: ""
+    award_url: ""
+  - title: ""
+    awarder: ""
+    date: ""
+    award_url: ""
+
+# References
+references:
+  - name: "Joyce D'Mello"
+    position: "Administrative Manager"
+    company: "AUT University"
+    email: "joyce.dmello@aut.ac.nz"
+    phone: "+64 21 140 0683"
+  - name: "Michael Fielding"
+    position: "Chief Executive Officer"
+    company: "AUT Ventures"
+    email: "michael.fielding@aut.ac.nz"
+    phone: "+64 21 193 9115"

@@ -220,16 +220,19 @@ education:
     institution: "AUT University"
     start_date: "July 2016"
     end_date: "Present"
+    location: "Auckland, New Zealand"
     description: ""
   - course: "Master of Computer and Information Sciences (MCIS)"
     institution: "AUT University"
     start_date: "March 2013"
     end_date: "December 2015"
+    location: "Auckland, New Zealand"
     description: ""
   - course: "Bachelor of Technology in Computer Science and Engineering"
     institution: "Jawaharlal Nehru Technological University"
     start_date: "March 2007"
     end_date: "March 2011"
+    location: "Hyderabad, India"
     description: ""
 
 # Key Skills and Characteristics
@@ -292,3 +295,16 @@ awards:
     awarder: ""
     date: ""
     award_url: ""
+
+# References
+references:
+  - name: "Joyce D'Mello"
+    position: "Administrative Manager"
+    company: "AUT University"
+    email: "joyce.dmello@aut.ac.nz"
+    phone: "+64 21 140 0683"
+  - name: "Michael Fielding"
+    position: "Chief Executive Officer"
+    company: "AUT Ventures"
+    email: "michael.fielding@aut.ac.nz"
+    phone: "+64 21 193 9115"

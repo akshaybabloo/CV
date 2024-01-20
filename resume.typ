@@ -5,6 +5,10 @@
   let darkblue = rgb(0, 0, 128)
   let mediumblue = rgb(64, 97, 158)
 
+  /// Adds a section title and a line underneath
+  /// 
+  /// - title (string): the title of the section
+  /// -> content
   let section(title)={
     v(15pt)
     set text(weight: "bold")
@@ -82,6 +86,7 @@
     table(
       columns: (auto, auto),
       align: horizon,
+      stroke: 0.5pt,
       ..for competencies in data.competencies {
         ([#competencies.name], [#competencies.competencies.join(", ")])
       },
@@ -98,18 +103,63 @@
       column-gutter: 25pt,
       row-gutter: 8pt,
       ..for work in data.experience {
-        (
-          text(work.start_date + " - " + work.end_date, style: "italic"), 
-          [
-            *#work.title at #work.company* \
-            #emph(work.location) \
-            #work.description \
-            #if work.technologies.len() > 0 [
-              *Technologies:* #work.technologies.join(", ")
-            ]
+        (text(work.start_date + " - " + work.end_date, style: "italic"), [
+          *#work.title at #work.company* \
+          #emph(work.location) \
+          #eval(work.description, mode: "markup")\
+          #if work.technologies.len() > 0 [
+            *Technologies:* #work.technologies.join(", ")
           ]
-        )
+        ])
       },
     )
+  }
+
+  // Education
+  if "education" in data {
+    section("Education")
+    for education in data.education {
+      [
+        *#education.course* \
+        #education.institution \
+        #emph(education.location) \
+        #emph(education.start_date + " - " + education.end_date)
+        #v(5pt)
+      ]
+    }
+  }
+
+  // Key skills and characteristics
+  if "skills" in data {
+    section("Key Skills and Characteristics")
+    for skill in data.skills {
+      [- #skill]
+    }
+  }
+
+  // Activities and Interests
+  if "activities" in data {
+    section("Activities and Interests")
+    for activity in data.activities {
+      [- #activity]
+    }
+  }
+
+  // References
+  if "references" in data {
+    section("References")
+    for reference in data.references {
+      [
+        *#reference.name* \
+        #reference.position \
+        #emph(reference.company) \
+        #underline(
+          text(link("mailto:" + reference.email)[#reference.email], fill: mediumblue),
+          offset: 2pt,
+        ) \
+        #reference.phone
+        #v(5pt)
+      ]
+    }
   }
 }

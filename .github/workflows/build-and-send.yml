@@ -20,10 +20,22 @@ jobs:
 
       - name: Install typst
         run: |
-          curl -LOJ https://github.com/typst/typst/releases/download/${typst_version}/typst-x86_64-unknown-linux-musl.tar.xz
-          tar -xvf typst-x86_64-unknown-linux-musl.tar.xz
-          sudo mv typst /usr/local/bin/typst
+          curl -L https://github.com/typst/typst/releases/download/${typst_version}/typst-x86_64-unknown-linux-musl.tar.xz --output typst-x86_64-unknown-linux-musl.tar.xz
+          tar -xf typst-x86_64-unknown-linux-musl.tar.xz
+          cd typst-x86_64-unknown-linux-musl
+          sudo mv typst /usr/local/bin/
 
       - name: Run typst
         run: |
-          typst --version
+          typst compile --font-path ./fonts resume.typ
+          typst compile --font-path ./fonts cv.typ
+  
+  email:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: eMail files
+        run: |
+          ls -lah

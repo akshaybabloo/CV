@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "cv"
+version = "1.0.0"
+description = "Send the built PDF files to email"
+authors = ["Akshay Raj Gollahalli <akshay@gollahalli.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+sendgrid = "^6.11.0"
+rich = "^13.7.0"
+click = "^8.1.7"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.12.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -3,7 +3,7 @@
   let data = yaml("data.yaml")
 
   let darkblue = rgb(0, 0, 128)
-  let mediumblue = rgb(0, 0, 205)
+  let mediumblue = rgb(64, 97, 158)
 
   let section(title)={
     v(15pt)

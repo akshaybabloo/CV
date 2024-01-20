@@ -15,6 +15,15 @@
     v(2pt)
   }
 
+  /// Adds a link to the document with an underline
+  ///
+  /// - dest (string): the destination of the link
+  /// - label (string): the label of the link
+  /// -> content
+  let linker(dest, label)={
+    underline(text(link(dest)[#label], fill: mediumblue), offset: 2pt)
+  }
+
   set align(center)
 
   // Personal Information
@@ -29,35 +38,29 @@
       if count < info_length - 1 [ | ]
     }
     if "linkedin" == key {
-      text(
-        [#link(
-            data.additional_info.linkedin,
-          )[#data.additional_info.linkedin.replace("https://", "")]],
-        fill: mediumblue,
-      )
+      text([#linker(
+          data.additional_info.linkedin,
+          data.additional_info.linkedin.replace("https://", ""),
+        )], fill: mediumblue)
       if count < info_length - 1 [ | ]
     }
     if "github" == key {
-      text(
-        [#link(
-            data.additional_info.github,
-          )[#data.additional_info.github.replace("https://", "")]],
-        fill: mediumblue,
-      )
+      text([#linker(
+          data.additional_info.github,
+          data.additional_info.github.replace("https://", ""),
+        )], fill: mediumblue)
       if count < info_length - 1 [ | ]
     }
     if "website" == key {
-      text(
-        [#link(
-            data.additional_info.website,
-          )[#data.additional_info.website.replace("https://", "")]],
-        fill: mediumblue,
-      )
+      text([#linker(
+          data.additional_info.website,
+          data.additional_info.website.replace("https://", ""),
+        )], fill: mediumblue)
       if count < info_length - 1 [ | ]
     }
     if "email" == key {
       text(
-        [#link("mailto:" + data.additional_info.email)[#data.additional_info.email]],
+        [#linker("mailto:" + data.additional_info.email, data.additional_info.email)],
         fill: mediumblue,
       )
       if count < info_length - 1 [ | ]

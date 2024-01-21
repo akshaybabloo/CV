@@ -1,32 +1,33 @@
+#let data = yaml("data.yaml")
+
+#let darkblue = rgb(0, 0, 128)
+#let mediumblue = rgb(64, 97, 158)
+
+/// Adds a section title and a line underneath
+///
+/// - title (string): the title of the section
+/// -> content
+#let section(title)={
+  v(15pt)
+  set text(weight: "bold")
+  text(title, size: 12pt, fill: mediumblue)
+  linebreak()
+  v(-6pt)
+  line(length: 100%, stroke: mediumblue)
+  v(2pt)
+}
+
+/// Adds a link to the document with an underline
+///
+/// - dest (string): the destination of the link
+/// - label (string): the label of the link
+/// -> content
+#let linker(dest, label)={
+  underline(text(link(dest)[#label], fill: mediumblue), offset: 2pt)
+}
+
 #{
   set text(font: "Roboto", size: 9pt, fallback: true)
-  let data = yaml("data.yaml")
-
-  let darkblue = rgb(0, 0, 128)
-  let mediumblue = rgb(64, 97, 158)
-
-  /// Adds a section title and a line underneath
-  /// 
-  /// - title (string): the title of the section
-  /// -> content
-  let section(title)={
-    v(15pt)
-    set text(weight: "bold")
-    text(title, size: 12pt, fill: mediumblue)
-    linebreak()
-    v(-6pt)
-    line(length: 100%, stroke: mediumblue)
-    v(2pt)
-  }
-
-  /// Adds a link to the document with an underline
-  ///
-  /// - dest (string): the destination of the link
-  /// - label (string): the label of the link
-  /// -> content
-  let linker(dest, label)={
-    underline(text(link(dest)[#label], fill: mediumblue), offset: 2pt)
-  }
 
   set align(center)
 
@@ -65,7 +66,8 @@
     if "email" == key {
       text(
         [#linker("mailto:" + data.additional_info.email, data.additional_info.email)],
-        fill: mediumblue, size: 10pt
+        fill: mediumblue,
+        size: 10pt,
       )
       if count < info_length - 1 [ | ]
     }

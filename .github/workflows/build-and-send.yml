@@ -5,9 +5,7 @@ env:
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches: [master]
 
   workflow_dispatch:
 
@@ -16,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
@@ -37,10 +35,14 @@ jobs:
 
       - name: Run typst
         run: |
+          poetry run python helper.py add-phone-number
           typst compile --font-path ./fonts resume.typ
           typst compile --font-path ./fonts cv.typ
+        env:
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
 
       - name: Send email
-        run: poetry run python send_email.py
+        run: poetry run python helper.py send-email --email-to $EMAIL_TO
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}

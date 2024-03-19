@@ -1,7 +1,7 @@
 name: Build and eMail
 
 env:
-  typst_version: "v0.10.0"
+  typst_version: "v0.11.0"
 
 on:
   push:

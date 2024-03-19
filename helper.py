@@ -1,5 +1,6 @@
 import base64
 import os
+import subprocess
 
 import click
 import jinja2
@@ -15,6 +16,9 @@ from sendgrid.helpers.mail import (
     FileType,
     Disposition,
 )
+
+# Get short Git hash
+git_hash = subprocess.run(["git", "rev-parse", "--short", "HEAD"], stdout=subprocess.PIPE)
 
 
 @click.group()
@@ -36,7 +40,7 @@ def send_email(email_to: str):
     from_email = Email("github-actions@gollahalli.com")
     to_email = To(email_to)
     subject = "CV and Resume from GitHub Actions"
-    content = Content("text/plain", "and easy to do anywhere, even with Python")
+    content = Content("text/plain", f"Sending CV and Resume from GitHub Actions with hash {git_hash.stdout.decode().strip()}")
     mail = Mail(from_email, to_email, subject, content)
 
     # Add attachments

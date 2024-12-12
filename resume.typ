@@ -38,8 +38,8 @@
   let count = 0
   let info_length = data.additional_info.len()
   // Add phone number is it exists
-  if sys.inputs.keys().contains("phone-number") {
-      text([#sys.inputs.at("phone-number") | ], size: 10pt)
+  if sys.inputs.keys().contains("phone_number") {
+      text([#sys.inputs.at("phone_number") | ], size: 10pt)
   }
   for (key, value) in data.additional_info {
     if "linkedin" == key {

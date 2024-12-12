@@ -34,13 +34,12 @@ jobs:
 
       - name: Run typst
         run: |
-          uv run python helper.py add-phone-number
-          just build $PHONE_NUMBER
+          just build "$PHONE_NUMBER"
         env:
           PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
 
       - name: Send email
-        run: poetry run python helper.py send-email --email-to $EMAIL_TO
+        run: uv run python helper.py send-email --email-to $EMAIL_TO
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}

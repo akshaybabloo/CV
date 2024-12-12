@@ -25,7 +25,7 @@ just build
 If you want to add phone number, then run:
 
 ```bash
-just build --phone-number=+1234567890
+just build phone_number=+1234567890
 ```
 
 This will generate `resume.pdf` and `cv.pdf` files.

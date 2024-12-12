@@ -3,7 +3,6 @@ import os
 import subprocess
 
 import click
-import jinja2
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import (
     Mail,
@@ -83,20 +82,6 @@ def send_email(email_to: str):
     mail_json = mail.get()
     response = sg.client.mail.send.post(request_body=mail_json)
     print(f"Sent status: {response.status_code}")
-
-
-@cli.command()
-def add_phone_number():
-    """
-    Add phone number to data.yaml
-    """
-    with open("data.yaml", "r") as f:
-        data = f.read()
-
-    data = jinja2.Template(data).render(phone_number=os.environ.get("PHONE_NUMBER"))
-
-    with open("data.yaml", "w") as f:
-        f.write(data)
 
 
 if __name__ == "__main__":

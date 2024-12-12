@@ -17,7 +17,7 @@ from sendgrid.helpers.mail import (
 )
 
 # Get short Git hash
-git_hash = subprocess.run(["git", "rev-parse", "--short", "HEAD"], stdout=subprocess.PIPE)
+git_hash = subprocess.run(["git", "rev-parse", "--short", "HEAD"], stdout=subprocess.PIPE, check=True, text=True)
 
 
 @click.group()
@@ -39,7 +39,7 @@ def send_email(email_to: str):
     from_email = Email("github-actions@gollahalli.com")
     to_email = To(email_to)
     subject = "CV and Resume from GitHub Actions"
-    content = Content("text/plain", f"Sending CV and Resume from GitHub Actions with hash {git_hash.stdout.decode().strip()}")
+    content = Content("text/plain", f"Sending CV and Resume from GitHub Actions with hash {git_hash.stdout.strip()}")
     mail = Mail(from_email, to_email, subject, content)
 
     # Add attachments
@@ -80,8 +80,11 @@ def send_email(email_to: str):
     mail.attachment = [cv_file, resume_file, data_file]
 
     mail_json = mail.get()
-    response = sg.client.mail.send.post(request_body=mail_json)
-    print(f"Sent status: {response.status_code}")
+    try:
+        response = sg.client.mail.send.post(request_body=mail_json)
+        print(f"Sent status: {response.status_code}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
 if __name__ == "__main__":

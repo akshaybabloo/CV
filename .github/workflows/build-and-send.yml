@@ -35,7 +35,7 @@ jobs:
       - name: Run typst
         run: |
           uv run python helper.py add-phone-number
-          just build ${{ PHONE_NUMBER }}
+          just build $PHONE_NUMBER
         env:
           PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
 

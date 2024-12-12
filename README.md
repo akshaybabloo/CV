@@ -2,27 +2,32 @@
 
 ## Requirements
 
-- [Poetry](https://python-poetry.org/docs/#installation)
+- [Astral Uv](https://github.com/astral-sh/uv/releases/latest)
 - [typst](https://github.com/typst/typst/releases/latest)
-- [Python 3](https://www.python.org/downloads/)
+- [Just](https://https://github.com/casey/just/releases/latest)
 
 ## Install
 
 Add `typst` to your path. Than:
 
 ```bash
-poetry install
+uv sync
 ```
 
 ## Build
 
-Edit `data.yaml` with your data. Leave the `phone_number` empty. Than:
+Edit `data.yaml` with your data. Than:
 
 ```bash
-PHONE_NUMBER="YOUR_PHONE_NUMBER" poetry run python helper.py add-phone-number
-typst compile --font-path ./fonts resume.typ
-typst compile --font-path ./fonts cv.typ
+just build
 ```
+
+If you want to add phone number, then run:
+
+```bash
+just build --phone-number=+1234567890
+```
+
 This will generate `resume.pdf` and `cv.pdf` files.
 
 ## Automate
@@ -34,7 +39,6 @@ You can automate the build process with GitHub Actions, see the [workflow](.gith
 The workflow does the following:
 
 - Install `typst` binary
-- Install `poetry` and the dependencies used here
+- Install `uv` and the dependencies used here
 - Fetches the secrets from the repository settings - `PHONE_NUMBER` and `SENDGRID_API_KEY`
-- Updates the `data.yaml` file with the `PHONE_NUMBER` secret and builds the PDFs
 - Sends the PDFs to the email address specified in the `EMAIL_TO` secret

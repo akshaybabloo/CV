@@ -1,8 +1,10 @@
 # CV
 
+My CV and resume.
+
 ## Requirements
 
-- [Astral Uv](https://github.com/astral-sh/uv/releases/latest)
+- [UV](https://github.com/astral-sh/uv/releases/latest)
 - [typst](https://github.com/typst/typst/releases/latest)
 - [Just](https://https://github.com/casey/just/releases/latest)
 
@@ -25,7 +27,7 @@ just build
 If you want to add phone number, then run:
 
 ```bash
-just build phone_number=+1234567890
+just build "+1234567890"
 ```
 
 This will generate `resume.pdf` and `cv.pdf` files.

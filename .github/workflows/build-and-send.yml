@@ -1,7 +1,7 @@
 name: Build and eMail
 
 env:
-  typst_version: "v0.11.0"
+  typst_version: "v0.12.0"
 
 on:
   push:
@@ -15,9 +15,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: extractions/setup-just@v2
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
         with:
-          python-version: "3.11"
+          version: "latest"
 
       - name: Install typst
         run: |
@@ -28,21 +30,16 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install pipx
-          pipx install poetry
-          poetry install
+          uv sync
 
       - name: Run typst
         run: |
-          poetry run python helper.py add-phone-number
-          typst compile --font-path ./fonts resume.typ
-          typst compile --font-path ./fonts cv.typ
+          just build "$PHONE_NUMBER"
         env:
           PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
 
       - name: Send email
-        run: poetry run python helper.py send-email --email-to $EMAIL_TO
+        run: uv run python helper.py send-email --email-to $EMAIL_TO
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}

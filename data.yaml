@@ -297,14 +297,14 @@ awards:
     award_url: ""
 
 # References
-references:
-  - name: "Joyce D'Mello"
-    position: "Administrative Manager"
-    company: "AUT University"
-    email: "joyce.dmello@aut.ac.nz"
-    phone: "+64 21 140 0683"
-  - name: "Michael Fielding"
-    position: "Chief Executive Officer"
-    company: "AUT Ventures"
-    email: "michael.fielding@aut.ac.nz"
-    phone: "+64 21 193 9115"
+# references:
+#   - name: ""
+#     position: ""
+#     company: ""
+#     email: ""
+#     phone: ""
+#   - name: ""
+#     position: ""
+#     company: ""
+#     email: ""
+#     phone: ""

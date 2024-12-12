@@ -37,11 +37,11 @@
   v(2pt)
   let count = 0
   let info_length = data.additional_info.len()
+  // Add phone number is it exists
+  if sys.inputs.keys().contains("phone-number") {
+      text([#sys.inputs.at("phone-number") | ], size: 10pt)
+  }
   for (key, value) in data.additional_info {
-    if "phone_number" == key {
-      text([#data.additional_info.phone_number], size: 10pt)
-      if count < info_length - 1 [ | ]
-    }
     if "linkedin" == key {
       text([#linker(
           data.additional_info.linkedin,

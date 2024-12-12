@@ -21,6 +21,6 @@ list:
 #################### Typst ####################
 
 # build the PDF
-build:
-    typst compile --pdf-standard a-2b --font-path ./fonts cv.typ
-    typst compile --pdf-standard a-2b --font-path ./fonts resume.typ
+@build phone-number="":
+    typst compile --pdf-standard a-2b --font-path ./fonts cv.typ {{ if phone-number != "" {"--input phone-number=" + phone-number} else {""} }}
+    typst compile --pdf-standard a-2b --font-path ./fonts resume.typ {{ if phone-number != "" {"--input phone-number=" + phone-number} else {""} }}

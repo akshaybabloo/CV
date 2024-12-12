@@ -3,7 +3,6 @@ name: "Akshay Raj Gollahalli"
 personal_statement: |-
   I am a highly experienced and proficient Full-stack developer expert at programming in Python, Go language and C++. I am very capable at all aspects of development - project planning, information gathering, writing, and testing code, creating documentation and support. I am also a Data scientist adept at collecting, analysing, and interpreting large datasets, developing new forecasting models, and performing data management tasks. I am a passionate, focused, enthusiastic individual possessing extensive analytical skills, strong attention to detail, an unquenchable thirst for knowledge, and a significant ability to work in team environments.
 additional_info:
-  phone_number: "{{phone_number}}"
   email: "akshay@gollahalli.com"
   linkedin: "https://linkedin.com/in/gollahalli"
   github: "https://github.com/akshaybabloo"

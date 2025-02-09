@@ -24,3 +24,8 @@ list:
 build phone_number="":
     typst compile --pdf-standard a-2b --font-path ./fonts cv.typ {{ if phone_number != "" {"--input phone_number='" + phone_number + "'"} else {""} }}
     typst compile --pdf-standard a-2b --font-path ./fonts resume.typ {{ if phone_number != "" {"--input phone_number='" + phone_number + "'"} else {""} }}
+
+# build the PDF with Typst RC version
+buildrc phone_number="":
+    typstrc compile --pdf-standard a-2b --font-path ./fonts cv.typ {{ if phone_number != "" {"--input phone_number='" + phone_number + "'"} else {""} }}
+    typstrc compile --pdf-standard a-2b --font-path ./fonts resume.typ {{ if phone_number != "" {"--input phone_number='" + phone_number + "'"} else {""} }}

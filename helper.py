@@ -17,7 +17,12 @@ from sendgrid.helpers.mail import (
 )
 
 # Get short Git hash
-git_hash = subprocess.run(["git", "rev-parse", "--short", "HEAD"], stdout=subprocess.PIPE, check=True, text=True)
+git_hash = subprocess.run(
+    ["git", "rev-parse", "--short", "HEAD"],
+    stdout=subprocess.PIPE,
+    check=True,
+    text=True,
+)
 
 
 @click.group()
@@ -39,7 +44,10 @@ def send_email(email_to: str):
     from_email = Email("github-actions@gollahalli.com")
     to_email = To(email_to)
     subject = "CV and Resume from GitHub Actions"
-    content = Content("text/plain", f"Sending CV and Resume from GitHub Actions with hash {git_hash.stdout.strip()}")
+    content = Content(
+        "text/plain",
+        f"Sending CV and Resume from GitHub Actions with hash {git_hash.stdout.strip()}",
+    )
     mail = Mail(from_email, to_email, subject, content)
 
     # Add attachments

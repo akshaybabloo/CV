@@ -19,7 +19,7 @@ from sendgrid.helpers.mail import (
 # Get short Git hash
 git_hash = subprocess.run(
     ["git", "rev-parse", "--short", "HEAD"],
-    stdout=subprocess.PIPE,
+    capture_output=True,
     check=True,
     text=True,
 )
@@ -40,7 +40,11 @@ def send_email(email_to: str):
 
     :param email_to: Email address to send the CV and Resume
     """
-    sg = SendGridAPIClient(api_key=os.environ.get("SENDGRID_API_KEY"))
+    api_key = os.environ.get("SENDGRID_API_KEY")
+    if not api_key:
+        raise ValueError("SENDGRID_API_KEY environment variable is not set")
+    sg = SendGridAPIClient(api_key=api_key)
+
     from_email = Email("github-actions@gollahalli.com")
     to_email = To(email_to)
     subject = "CV and Resume from GitHub Actions"
@@ -87,12 +91,13 @@ def send_email(email_to: str):
 
     mail.attachment = [cv_file, resume_file, data_file]
 
-    mail_json = mail.get()
     try:
-        response = sg.client.mail.send.post(request_body=mail_json)
+        response = sg.send(mail)
         print(f"Sent status: {response.status_code}")
     except Exception as e:
-        print(f"An error occurred: {e}")
+        import logging
+        logging.basicConfig(level=logging.ERROR)
+        logging.error("An error occurred", exc_info=True)
 
 
 if __name__ == "__main__":

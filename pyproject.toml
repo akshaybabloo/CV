@@ -6,7 +6,7 @@ authors = [{name = "Akshay Raj Gollahalli", email = "akshay@gollahalli.com"}]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "click>=8.1.7",
+    "click>=8.4.0",
     "sendgrid>=6.11.0",
 ]
 

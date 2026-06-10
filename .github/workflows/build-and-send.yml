@@ -41,5 +41,5 @@ jobs:
       - name: Send email
         run: uv run python helper.py send-email --email-to $EMAIL_TO
         env:
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}

@@ -1,4 +1,5 @@
 import base64
+import mimetypes
 import os
 import subprocess
 
@@ -21,11 +22,13 @@ def cli():
 
 @cli.command(help="Send CV, Resume and data.yaml via email")
 @click.option("--email-to", required=True, help="Email address to send the CV and Resume")
-def send_email(email_to: str):
+@click.option("--files", default="cv.pdf,resume.pdf,data.yaml", help="Comma-separated list of files to attach")
+def send_email(email_to: str, files: str):
     """
     Send email using SendGrid
 
     :param email_to: Email address to send the CV and Resume
+    :param files: Comma-separated list of files to attach
     """
     api_key = os.environ.get("RESEND_API_KEY")
     if not api_key:
@@ -33,32 +36,22 @@ def send_email(email_to: str):
     resend.api_key = api_key
 
     # Add attachments
-    with open("cv.pdf", "rb") as f:
-        cv_data = f.read()
+    file_list = [name.strip() for name in files.split(",") if name.strip()]
+    if not file_list:
+        raise ValueError("No files provided to attach")
 
-    with open("resume.pdf", "rb") as f:
-        resume_data = f.read()
-
-    with open("data.yaml", "rb") as f:
-        data = f.read()
-
-    attachments: list[resend.Attachment] = [
-        {
-            "filename": "cv.pdf",
-            "content": base64.b64encode(cv_data).decode(),
-            "content_type": "application/pdf",
-        },
-        {
-            "filename": "resume.pdf",
-            "content": base64.b64encode(resume_data).decode(),
-            "content_type": "application/pdf",
-        },
-        {
-            "filename": "data.yaml",
-            "content": base64.b64encode(data).decode(),
-            "content_type": "text/yaml",
-        },
-    ]
+    attachments: list[resend.Attachment] = []
+    for file_name in file_list:
+        with open(file_name, "rb") as f:
+            content = base64.b64encode(f.read()).decode()
+        content_type, _ = mimetypes.guess_type(file_name)
+        attachments.append(
+            {
+                "filename": os.path.basename(file_name),
+                "content": content,
+                "content_type": content_type or "application/octet-stream",
+            }
+        )
 
     params: resend.Emails.SendParams = {
         "from": "github-actions@gollahalli.com",

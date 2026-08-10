@@ -31,7 +31,7 @@
           text(weight: "bold", project.name)
         }
         linebreak()
-        project.description
+        project.at("description", default: "")
         let tech = project.at("technologies", default: ()).filter(t => t != "")
         if tech.len() > 0 {
           linebreak()
@@ -55,7 +55,7 @@
           text(weight: "bold", publication.name)
         }
         linebreak()
-        publication.description
+        publication.at("description", default: "")
       })
     }
   }

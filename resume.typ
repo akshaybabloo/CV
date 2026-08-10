@@ -10,7 +10,7 @@
     if sys.inputs.keys().contains("phone_number") {
       items.push([#sys.inputs.at("phone_number")])
     }
-    let info = data.additional_info
+    let info = data.at("additional_info", default: (:))
     if "email" in info {
       items.push(linker("mailto:" + info.email, info.email))
     }
@@ -57,10 +57,11 @@
             detail(work.location)
             v(1pt)
             eval(work.description, mode: "markup")
-            if work.technologies.len() > 0 {
+            let tech = work.at("technologies", default: ())
+            if tech.len() > 0 {
               v(1pt)
               text("Technologies: ", weight: "bold")
-              work.technologies.join(", ")
+              tech.join(", ")
             }
           },
         )

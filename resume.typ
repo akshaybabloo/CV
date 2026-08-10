@@ -1,96 +1,45 @@
+#import "template.typ": *
+
 #let data = yaml("data.yaml")
 
-#let darkblue = rgb(0, 0, 128)
-#let mediumblue = rgb(64, 97, 158)
-
-/// Adds a section title and a line underneath
-///
-/// - title (string): the title of the section
-/// -> content
-#let section(title)={
-  v(15pt)
-  set text(weight: "bold")
-  text(title, size: 12pt, fill: mediumblue)
-  linebreak()
-  v(-6pt)
-  line(length: 100%, stroke: mediumblue)
-  v(2pt)
-}
-
-/// Adds a link to the document with an underline
-///
-/// - dest (string): the destination of the link
-/// - label (string): the label of the link
-/// -> content
-#let linker(dest, label)={
-  underline(text(link(dest)[#label], fill: mediumblue), offset: 2pt)
-}
-
-#{
-  set text(font: "Roboto", size: 9pt, fallback: true)
-
-  set align(center)
-
+/// The resume body, shared with cv.typ. Held as a value rather than `include`d:
+/// an include would re-scope the page set rule and force a page break at the
+/// seam where cv.typ appends its extra sections.
+#let resume-body = {
   // Personal Information
-  text(data.name, fill: darkblue, size: 30pt)
-  linebreak()
-  v(2pt)
-  let count = 0
-  let info_length = data.additional_info.len()
-  // Add phone number is it exists
-  if sys.inputs.keys().contains("phone_number") {
-      text([#sys.inputs.at("phone_number") | ], size: 10pt)
-  }
-  for (key, value) in data.additional_info {
-    if "linkedin" == key {
-      text([#linker(
-          data.additional_info.linkedin,
-          data.additional_info.linkedin.replace("https://", ""),
-        )], fill: mediumblue, size: 10pt)
-      if count < info_length - 1 [ | ]
+  title-block(data.name, {
+    let items = ()
+    if sys.inputs.keys().contains("phone_number") {
+      items.push([#sys.inputs.at("phone_number")])
     }
-    if "github" == key {
-      text([#linker(
-          data.additional_info.github,
-          data.additional_info.github.replace("https://", ""),
-        )], fill: mediumblue, size: 10pt)
-      if count < info_length - 1 [ | ]
+    let info = data.additional_info
+    if "email" in info {
+      items.push(linker("mailto:" + info.email, info.email))
     }
-    if "website" == key {
-      text([#linker(
-          data.additional_info.website,
-          data.additional_info.website.replace("https://", ""),
-        )], fill: mediumblue, size: 10pt)
-      if count < info_length - 1 [ | ]
+    if "linkedin" in info {
+      items.push(linker(info.linkedin, info.linkedin.replace("https://", "")))
     }
-    if "email" == key {
-      text(
-        [#linker("mailto:" + data.additional_info.email, data.additional_info.email)],
-        fill: mediumblue,
-        size: 10pt,
-      )
-      if count < info_length - 1 [ | ]
+    if "github" in info {
+      items.push(linker(info.github, info.github.replace("https://", "")))
     }
-    count += 1
-  }
-  set align(left)
-  set par(justify: true)
+    if "website" in info {
+      items.push(linker(info.website, info.website.replace("https://", "")))
+    }
+    items
+  })
 
   // Personal Statement
   if "personal_statement" in data {
     section("Personal Statement")
-    text(data.personal_statement)
+    par(justify: true, text(data.personal_statement, hyphenate: auto))
   }
 
   // Core Competencies
   if "competencies" in data {
     section("Core Competencies")
-    table(
-      columns: (auto, auto),
-      align: horizon,
-      stroke: 0.5pt,
-      ..for competencies in data.competencies {
-        ([#competencies.name], [#competencies.competencies.join(", ")])
+    labelled(
+      for c in data.competencies {
+        (text(c.name, weight: "medium"), c.competencies.join(dot))
       },
     )
   }
@@ -98,22 +47,25 @@
   // Work Experience
   if "experience" in data {
     section("Work Experience")
-    table(
-      columns: (90pt, auto),
-      align: start,
-      stroke: none,
-      column-gutter: 25pt,
-      row-gutter: 10pt,
-      ..for work in data.experience {
-        (text(work.start_date + " - " + work.end_date, style: "italic"), [
-          *#work.title at #work.company* \
-          #emph(work.location) \
-          #eval(work.description, mode: "markup")
-          #if work.technologies.len() > 0 [
-            #v(-3pt)
-            *Technologies:* #work.technologies.join(", ")
-          ]
-        ])
+    entries(
+      for work in data.experience {
+        (
+          daterange(work.start_date, work.end_date),
+          {
+            text(weight: "bold", work.title)
+            text(" at ")
+            text(weight: "medium", work.company)
+            linebreak()
+            detail(work.location)
+            v(1pt)
+            eval(work.description, mode: "markup")
+            if work.technologies.len() > 0 {
+              v(1pt)
+              text("Technologies: ", weight: "bold")
+              work.technologies.join(", ")
+            }
+          },
+        )
       },
     )
   }
@@ -121,48 +73,57 @@
   // Education
   if "education" in data {
     section("Education")
-    for education in data.education {
-      [
-        *#education.course* \
-        #education.institution \
-        #emph(education.location) \
-        #emph(education.start_date + " - " + education.end_date)
-        #v(5pt)
-      ]
-    }
+    entries(
+      for education in data.education {
+        (
+          daterange(education.start_date, education.end_date),
+          {
+            text(weight: "bold", education.course)
+            linebreak()
+            education.institution
+            linebreak()
+            detail(education.location)
+          },
+        )
+      },
+    )
   }
 
   // Key skills and characteristics
   if "skills" in data {
     section("Key Skills and Characteristics")
-    for skill in data.skills {
-      [- #skill]
-    }
+    tight-list(data.skills)
   }
 
   // Activities and Interests
   if "activities" in data {
     section("Activities and Interests")
-    for activity in data.activities {
-      [- #activity]
-    }
+    tight-list(data.activities)
   }
 
   // References
   if "references" in data {
     section("References")
-    for reference in data.references {
-      [
-        *#reference.name* \
-        #reference.position \
-        #emph(reference.company) \
-        #underline(
-          text(link("mailto:" + reference.email)[#reference.email], fill: mediumblue),
-          offset: 2pt,
-        ) \
-        #reference.phone
-        #v(5pt)
-      ]
-    }
+    entries(
+      for reference in data.references {
+        (
+          linker("mailto:" + reference.email, reference.email),
+          {
+            text(weight: "bold", reference.name)
+            linebreak()
+            reference.position
+            linebreak()
+            detail(reference.company)
+            linebreak()
+            reference.phone
+          },
+        )
+      },
+    )
   }
 }
+
+// ---------------------------------------------------------------- document
+
+#show: cv-theme(data.name)
+#resume-body

@@ -1,35 +1,88 @@
-#import "resume.typ": section, data
+#import "template.typ": *
+#import "resume.typ": data, resume-body
 
-#include "resume.typ"
+#show: cv-theme(data.name)
 
+#resume-body
+
+// Languages
 #{
-  set text(font: "Roboto", size: 9pt, fallback: true)
-
-  if "languages" in data {
+  let languages = filled(data.at("languages", default: ()), "language")
+  if languages.len() > 0 {
     section("Languages")
-    for language in data.languages {
-      [ / #language.language: #language.fluency ]
-    }
+    labelled(
+      for language in languages {
+        (text(weight: "medium", language.language), language.fluency)
+      },
+    )
   }
+}
 
-  if "projects" in data {
+// Projects
+#{
+  let projects = filled(data.at("projects", default: ()), "name")
+  if projects.len() > 0 {
     section("Projects")
-    for project in data.projects {
-      [ / #project.name: #project.description ]
+    for project in projects {
+      block(breakable: false, below: 9pt, {
+        if project.at("url", default: "") != "" {
+          text(weight: "bold", linker(project.url, project.name))
+        } else {
+          text(weight: "bold", project.name)
+        }
+        linebreak()
+        project.description
+        let tech = project.at("technologies", default: ()).filter(t => t != "")
+        if tech.len() > 0 {
+          linebreak()
+          detail(tech.join(dot))
+        }
+      })
     }
   }
+}
 
-  if "publications" in data {
+// Publications
+#{
+  let publications = filled(data.at("publications", default: ()), "name")
+  if publications.len() > 0 {
     section("Publications")
-    for publication in data.publications {
-      [ / #publication.name: #publication.description ]
+    for publication in publications {
+      block(breakable: false, below: 9pt, {
+        if publication.at("url", default: "") != "" {
+          text(weight: "bold", linker(publication.url, publication.name))
+        } else {
+          text(weight: "bold", publication.name)
+        }
+        linebreak()
+        publication.description
+      })
     }
   }
+}
 
-  if "awards" in data {
+// Awards and Scholarships
+#{
+  let awards = filled(data.at("awards", default: ()), "title")
+  if awards.len() > 0 {
     section("Awards")
-    for award in data.awards {
-      [ / #award.title: #award.awarded ]
-    }
+    entries(
+      for award in awards {
+        (
+          detail(award.at("date", default: "")),
+          {
+            if award.at("award_url", default: "") != "" {
+              text(weight: "bold", linker(award.award_url, award.title))
+            } else {
+              text(weight: "bold", award.title)
+            }
+            if award.at("awarded", default: "") != "" {
+              linebreak()
+              detail(award.awarded)
+            }
+          },
+        )
+      },
+    )
   }
 }

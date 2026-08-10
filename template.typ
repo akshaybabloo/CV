@@ -50,7 +50,7 @@
 /// - start (string): the start of the range
 /// - end (string): the end of the range
 /// -> content
-#let daterange(start, end) = detail(start + sym.space.nobreak + "- " + end)
+#let date_range(start, end) = detail(start + sym.space.nobreak + "- " + end)
 
 /// The document title block: name over a row of contact links.
 ///

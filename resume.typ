@@ -48,7 +48,7 @@
     entries(
       for work in data.experience {
         (
-          daterange(work.start_date, work.end_date),
+          date_range(work.start_date, work.end_date),
           {
             text(weight: "bold", work.title)
             text(" at ")
@@ -74,7 +74,7 @@
     entries(
       for education in data.education {
         (
-          daterange(education.start_date, education.end_date),
+          date_range(education.start_date, education.end_date),
           {
             text(weight: "bold", education.course)
             linebreak()

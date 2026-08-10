@@ -1,7 +1,7 @@
 #import "template.typ": *
 #import "resume.typ": data, resume-body
 
-#show: cv-theme(data.name)
+#show: cv-theme(data.name, "CV")
 
 #resume-body
 

@@ -120,7 +120,12 @@
 ///
 /// - name (string): the name shown in the page footer
 /// -> function
-#let cv-theme(name) = doc => {
+#let cv-theme(name, doc_type) = doc => {
+  set document(
+    author: name,
+    title: name + " - " + doc_type,
+    date: auto
+    )
   set page(
     paper: "a4",
     margin: (x: 1.6cm, top: 1.5cm, bottom: 1.4cm),

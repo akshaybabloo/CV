@@ -2,9 +2,7 @@
 
 #let data = yaml("data.yaml")
 
-/// The resume body, shared with cv.typ. Held as a value rather than `include`d:
-/// an include would re-scope the page set rule and force a page break at the
-/// seam where cv.typ appends its extra sections.
+/// shared with cv.typ
 #let resume-body = {
   // Personal Information
   title-block(data.name, {
@@ -125,5 +123,5 @@
 
 // ---------------------------------------------------------------- document
 
-#show: cv-theme(data.name)
+#show: cv-theme(data.name, "Resume")
 #resume-body

@@ -84,22 +84,19 @@
   // References
   if "references" in data {
     section("References")
-    entries(
-      for reference in data.references {
-        (
-          linker("mailto:" + reference.email, reference.email),
-          {
-            text(weight: "bold", reference.name)
-            linebreak()
-            reference.position
-            linebreak()
-            detail(reference.company)
-            linebreak()
-            reference.phone
-          },
-        )
-      },
-    )
+    for reference in data.references {
+      block(breakable: false, below: 10pt, {
+        text(weight: "bold", reference.name)
+        linebreak()
+        reference.position
+        linebreak()
+        detail(reference.company)
+        linebreak()
+        linker("mailto:" + reference.email, reference.email)
+        linebreak()
+        reference.phone
+      })
+    }
   }
 }
 

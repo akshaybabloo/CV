@@ -196,8 +196,12 @@
   set par(
     justify: prose,
     leading: if prose { 0.75em } else { 0.62em },
-    spacing: if prose { 0.95em } else { 0.62em },
+    spacing: if prose { 1.4em } else { 0.62em },
   )
-  set list(indent: 6pt, spacing: 0.62em, body-indent: 5pt)
+  set list(
+    indent: 6pt,
+    spacing: if prose { 1em } else { 0.62em },
+    body-indent: 5pt,
+  )
   doc
 }

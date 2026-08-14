@@ -30,7 +30,23 @@ If you want to add phone number, then run:
 just build "+1234567890"
 ```
 
-This will generate `resume.pdf` and `cv.pdf` files.
+This will generate `resume.pdf`, `cv.pdf` and `cover-letter.pdf` files.
+
+## Cover letter
+
+The cover letter shares its letterhead, colours and footer with the CV, so the
+three documents read as one set. Only the per-application content lives in
+`cover-letter.yaml` — the name and contact links come from `data.yaml`.
+
+Edit `cover-letter.yaml` and build just that document:
+
+```bash
+just letter
+```
+
+Leave `date` blank to stamp the build date, and `subject` blank to omit the
+reference line. Setting `signature` to an image path drops it in above the
+name; leaving it blank closes the gap so the name follows the sign-off directly.
 
 ## Automate
 
@@ -42,5 +58,5 @@ The workflow does the following:
 
 - Install `typst` binary
 - Install `uv` and the dependencies used here
-- Fetches the secrets from the repository settings - `PHONE_NUMBER` and `SENDGRID_API_KEY`
+- Fetches the secrets from the repository settings - `PHONE_NUMBER` and `RESEND_API_KEY`
 - Sends the PDFs to the email address specified in the `EMAIL_TO` secret

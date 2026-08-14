@@ -10,6 +10,7 @@
 #let muted = luma(90)
 #let body-size = 9pt
 #let detail-size = 8.5pt
+#let prose-size = 10pt
 
 // ---------------------------------------------------------------- helpers
 
@@ -30,6 +31,12 @@
     line(length: 100%, stroke: 0.6pt + accent)
   },
 )
+
+/// A block of address lines, one per line, with placeholder lines dropped.
+///
+/// - lines (array): the address lines
+/// -> content
+#let address-block(lines) = lines.filter(l => l != "").map(l => [#l]).join(linebreak())
 
 /// Adds a link to the document, coloured rather than underlined.
 ///
@@ -52,17 +59,51 @@
 /// -> content
 #let date_range(start, end) = detail(start + sym.space.nobreak + "- " + end)
 
-/// The document title block: name over a row of contact links.
+/// A full width hairline in the accent colour.
+/// -> content
+#let hrule = line(length: 100%, stroke: 0.6pt + accent)
+
+/// Renders the contact entries of an `additional_info` mapping, in a fixed
+/// order so the row does not reshuffle when the data file is reordered. Takes
+/// the mapping rather than reading it, keeping this file free of data.yaml.
+///
+/// - info (dictionary): the contact fields to render
+/// -> array
+#let contact-links(info) = {
+  let items = ()
+  if sys.inputs.keys().contains("phone_number") {
+    items.push([#sys.inputs.at("phone_number")])
+  }
+  if "email" in info {
+    items.push(linker("mailto:" + info.email, info.email))
+  }
+  for key in ("linkedin", "github", "website") {
+    if key in info {
+      items.push(linker(info.at(key), info.at(key).replace("https://", "")))
+    }
+  }
+  items
+}
+
+/// The document title block: name over a row of contact links. Shared by every
+/// document so the three of them read as one set of stationery.
 ///
 /// - name (string): the name to display
 /// - links (array): contact entries, already rendered
+/// - rule (bool): whether to close the block with a hairline
 /// -> content
-#let title-block(name, links) = align(center, {
-  text(name, fill: accent-dark, size: 24pt, tracking: 0.8pt)
-  v(2pt)
-  set text(size: 9.5pt)
-  links.join(text(" | ", fill: luma(170)))
-})
+#let title-block(name, links, rule: false) = {
+  align(center, {
+    text(name, fill: accent-dark, size: 24pt, tracking: 0.8pt)
+    v(2pt)
+    set text(size: 9.5pt)
+    links.join(text(" | ", fill: luma(170)))
+  })
+  if rule {
+    v(4pt)
+    hrule
+  }
+}
 
 /// Two-column date/detail layout shared by every dated section.
 ///
@@ -115,12 +156,20 @@
 
 // ---------------------------------------------------------------- theme
 
-/// Document-wide styling, applied with `show: cv-theme(name)`. Both resume.typ
-/// and cv.typ go through this, so the two documents cannot drift apart.
+/// Document-wide styling, applied with `show: cv-theme(name, doc_type)`. Every
+/// document goes through this, so they cannot drift apart.
+///
+/// `prose` switches the typographic preset. The CV and resume are dense
+/// reference documents: small, tightly led, ragged right, never hyphenated. A
+/// cover letter is continuous prose, so it wants a larger size, more leading
+/// and justification — and once justified it needs hyphenation back on, or the
+/// word spacing goes ragged.
 ///
 /// - name (string): the name shown in the page footer
+/// - doc_type (string): the kind of document, used in the PDF title
+/// - prose (bool): use the letter typography rather than the dense CV preset
 /// -> function
-#let cv-theme(name, doc_type) = doc => {
+#let cv-theme(name, doc_type, prose: false) = doc => {
   set document(
     author: name,
     title: name + " - " + doc_type,
@@ -138,8 +187,17 @@
       )
     },
   )
-  set text(font: "Roboto", size: body-size, fallback: true, hyphenate: false)
-  set par(justify: false, leading: 0.62em, spacing: 0.62em)
+  set text(
+    font: "Roboto",
+    size: if prose { prose-size } else { body-size },
+    fallback: true,
+    hyphenate: prose,
+  )
+  set par(
+    justify: prose,
+    leading: if prose { 0.75em } else { 0.62em },
+    spacing: if prose { 0.95em } else { 0.62em },
+  )
   set list(indent: 6pt, spacing: 0.62em, body-indent: 5pt)
   doc
 }

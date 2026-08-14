@@ -5,26 +5,7 @@
 /// shared with cv.typ
 #let resume-body = {
   // Personal Information
-  title-block(data.name, {
-    let items = ()
-    if sys.inputs.keys().contains("phone_number") {
-      items.push([#sys.inputs.at("phone_number")])
-    }
-    let info = data.at("additional_info", default: (:))
-    if "email" in info {
-      items.push(linker("mailto:" + info.email, info.email))
-    }
-    if "linkedin" in info {
-      items.push(linker(info.linkedin, info.linkedin.replace("https://", "")))
-    }
-    if "github" in info {
-      items.push(linker(info.github, info.github.replace("https://", "")))
-    }
-    if "website" in info {
-      items.push(linker(info.website, info.website.replace("https://", "")))
-    }
-    items
-  })
+  title-block(data.name, contact-links(data.at("additional_info", default: (:))))
 
   // Personal Statement
   if "personal_statement" in data {

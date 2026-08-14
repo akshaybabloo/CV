@@ -1,0 +1,28 @@
+
+date: ""
+
+recipient:
+  name: "Hiring Manager"
+  title: ""
+  company: ""
+  address:
+    - ""
+    - ""
+
+subject: ""
+
+salutation: "Dear Hiring Manager,"
+
+body:
+  - |-
+    Write the opening paragraph here: the role being applied for, where it was
+    advertised, and the single strongest reason to keep reading.
+  - |-
+    Use the middle paragraphs to connect specific experience to the specific
+    requirements of the role. Prefer concrete evidence over adjectives.
+  - |-
+    Close by restating interest and proposing the next step.
+
+signoff: "Yours sincerely,"
+
+signature: ""
